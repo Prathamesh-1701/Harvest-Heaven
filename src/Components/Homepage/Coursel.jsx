@@ -29,7 +29,7 @@ const settings = {
   ];
 
   return (
-    <Box position={'relative'} height={'700px'} width={'full'} overflow={'hidden'} borderRadius={'50%'}  >
+    <Box position={'relative'} height={'700px'} width={'full'} overflow={'hidden'} borderRadius={'5%'}  >
       <link
         rel="stylesheet"
         type="text/css"
