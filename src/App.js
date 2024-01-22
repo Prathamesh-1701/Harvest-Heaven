@@ -3,7 +3,7 @@ import {  Routes, Route, BrowserRouter } from 'react-router-dom';
 
 
 import Home from './Components/Homepage/Home';
-import Slidebar from './Components/Sidebar/Sidebar.tsx'
+import Slidebar from './Components/Sidebar/Sidebar.jsx'
 import About from './Components/About/About'
 import Contact from './Components/Contact/Contact'
 import Forcast from './Components/Forecast/Forecast'
