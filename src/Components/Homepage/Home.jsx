@@ -47,7 +47,7 @@ const Home = () => {
           data-aos-offset="0">
           Welcome to Our Agriculture Website!!
         </Heading>
-        <Text fontSize="lg" mt={4} bgGradient='linear(to-l, #086010, #1BBA9D,#52AE22 )' margin={'2%'} as={'h4'} bgClip={'text'}>
+        <Text as='b' fontSize="lg" mt={4} style={bgStyle} margin={'4%'} marginTop={'4%'}  marginBottom={'4%'} bgClip={'text'}>
           Your one-stop solution for all things agriculture.
         </Text>
 
@@ -73,45 +73,121 @@ const Home = () => {
 
 
 
-            <Box display={'flex'}
+            {/* <Box display={'flex'}
               width={'full'}
-              // bg={'red'}
+              bg={'red'}
               padding={'2%'}
               justifyContent={'space-evenly'}
               alignItems={'space-evenly'}>
-              <Image
 
-                borderRadius='full'
-                boxSize='25%'
-                src='https://c0.wallpaperflare.com/preview/520/776/992/l5du8aeifpe63vdcb7mheo0aga.jpg'
-                alt='#'
-                data-aos="zoom-in"
-
-              />
-
-              <Image
-                borderRadius='full'
-                boxSize='20%'
-                src='https://c0.wallpaperflare.com/preview/520/776/992/l5du8aeifpe63vdcb7mheo0aga.jpg'
-                alt='#'
-                data-aos="zoom-in"
-              />
-
-              <Image
-                borderRadius='full'
-                boxSize='15%'
-                src='https://c0.wallpaperflare.com/preview/520/776/992/l5du8aeifpe63vdcb7mheo0aga.jpg'
-                alt='#'
-                data-aos="zoom-in"
-              />
+                <Box display="flex" flexDirection={'column'} alignItems="center">
+                  <Image
+                    borderRadius="full"
+                    boxSize="25%"
+                    height="100%"
+                    width="100%"
+                    src="https://community.nasscom.in/sites/default/files/media/images/file.png"
+                    alt="#"
+                    data-aos="zoom-in"
+                  />
+                  <Text ml={4}>
+                    Forcasting Crops
+                  </Text>
+                </Box>
 
 
-            </Box>
+                <Box display="flex" flexDirection={'column'} alignItems="center">
+                  <Image
+                    borderRadius="full"
+                    boxSize="25%"
+                    height="100%"
+                    width="50%"
+                    src="https://www.hoselink.com.au/cdn/shop/articles/Hoselink-fertilisers.jpg?v=1628814683"
+                    alt="#"
+                    data-aos="zoom-in"
+                  />
+                  <Text ml={4}>
+                    Shopping Medicines
+                  </Text>
+                </Box>
+
+                <Box display="flex" flexDirection={'column'} alignItems="center">
+                  <Image
+                    borderRadius="full"
+                    boxSize="25%"
+                    height="100%"
+                    width="25%"
+                    src="https://scitechdaily.com/images/Plant-Disease-Concept-1536x1229.jpg"
+                    alt="#"
+                    data-aos="zoom-in"
+                  />
+                  <Text ml={4}>
+                    Predicting Disease
+                  </Text>
+                </Box>
 
 
+            </Box> */}
+
+            <Box
+  display={'flex'}
+  width={'full'}
+  // bg={'red'}
+  padding={'2%'}
+  justifyContent={'space-evenly'}
+  alignItems={'center'} // Corrected from 'space-evenly'
+>
+  <Box display="flex" flexDirection={'column'} alignItems="center">
+    <Image
+      borderRadius="full"
+      boxSize="25%"
+      height="100%"
+      width="150%"
+      src="https://community.nasscom.in/sites/default/files/media/images/file.png"
+      alt="#"
+      data-aos="zoom-in"
+    />
+    <Text ml={4}>
+      Forcasting Crops
+    </Text>
+  </Box>
+
+  <Box display="flex" flexDirection={'column'} marginRight={'13%'} marginLeft={'15%'} alignItems="center" >
+    <Image
+      borderRadius="full"
+      boxSize="25%"
+      height="100%"
+      width="110%"
+      
+      src="https://www.hoselink.com.au/cdn/shop/articles/Hoselink-fertilisers.jpg?v=1628814683"
+      alt="#"
+      data-aos="zoom-in"
+    />
+    <Text ml={4}>
+      Shopping Medicines
+    </Text>
+  </Box>
+
+  <Box display="flex" flexDirection={'column'} alignItems="center" >
+    <Image
+      borderRadius="full"
+      boxSize="25%"
+      height="100%"
+      width="45%"
+      src="https://scitechdaily.com/images/Plant-Disease-Concept-1536x1229.jpg"
+      alt="#"
+      data-aos="zoom-in"
+    />
+    <Text ml={4}>
+      Predicting Disease
+    </Text>
+  </Box>
+</Box>
 
 
+            {/* https://www.hoselink.com.au/cdn/shop/articles/Hoselink-fertilisers.jpg?v=1628814683 */}
 
+            {/* https://scitechdaily.com/images/Plant-Disease-Concept-1536x1229.jpg' */}
 
             <Text >
               we offer a range of comprehensive services to cater to all your needs. Our team of experts is dedicated to providing top-notch solutions tailored to your requirements.
@@ -126,7 +202,7 @@ const Home = () => {
             <Text fontSize='md'>
               Discover the power of precision farming with our advanced technological solutions. We utilize data analytics, IoT, and automation to help you make informed decisions, improve resource management, and maximize your agricultural output.
             </Text>
-            <Text fontSize='xl' as='b' bgClip='text' bgGradient='linear(to-l, #086010, #1BBA9D,#52AE22 )' > Service 3: Farm Equipment Rental and Leasingv</Text>
+            <Text fontSize='xl' as='b' bgClip='text' bgGradient='linear(to-l, #086010, #1BBA9D,#52AE22 )' > Service 3: Farm Equipment Rental </Text>
             <Text fontSize='md'>
               Discover the power of precision farming with our advanced technological solutions. We utilize data anaAccess a wide range of high-quality farm equipment and machinery through our rental and leasing services. Whether you need tractors, plows, or harvesters, we have you covered. Efficient and reliable equipment to streamline your farm operations.
             </Text>

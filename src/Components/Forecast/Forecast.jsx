@@ -1,199 +1,223 @@
-// import React, { useState } from 'react';
-// import {
-//   ChakraProvider,
-//   Box,
-//   Container,
-//   Input,
-//   Button,
-//   Text,
-//   FormControl,
-//   FormLabel,
-//   Select,
-// } from '@chakra-ui/react';
-
-// function Forecast() {
-//   const [soilType, setSoilType] = useState('');
-//   const [city, setCity] = useState('');
-//   const [month, setMonth] = useState('');
-//   const [year, setYear] = useState('');
-//   const [weather, setWeather] = useState('');
-//   const [recommendations, setRecommendations] = useState('');
-
-//   const handleSubmit = async () => {
-//     // Make a POST request to your backend to get crop recommendations based on the input
-//     const response = await fetch('http://localhost:1000', {
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'application/json',
-//       },
-//       body: JSON.stringify({ soilType, city, month, year, weather }),
-//     });
-
-//     if (response.ok) {
-//       const data = await response.json();
-//       setRecommendations(data.message);
-//     } else {
-//       // Handle errors if necessary
-//     }
-//   };
-
-//   return (
-//     <ChakraProvider>
-//       <Container maxW="md" centerContent>
-//         <Box p="4">
-//           <Text fontSize="2xl" fontWeight="bold">
-//             Crop Recommendations
-//           </Text>
-//           <FormControl>
-//             <FormLabel>Soil Type</FormLabel>
-//             <Select
-//               placeholder="Select soil type"
-//               value={soilType}
-//               onChange={(e) => setSoilType(e.target.value)}
-//             >
-//               <option value="White Soil">White Soil</option>
-//               <option value="Alluvial Soil">Alluvial Soil</option>
-//               {/* Add more soil types */}
-//             </Select>
-
-//             <FormLabel>City</FormLabel>
-//             <Select
-//               placeholder="Select city"
-//               value={city}
-//               onChange={(e) => setCity(e.target.value)}
-//             >
-//               <option value="Solapur">Solapur</option>
-//               <option value="Sangli">Sangli</option>
-//               {/* Add more cities */}
-//             </Select>
-
-//             <FormLabel>Month</FormLabel>
-//             <Select
-//               placeholder="Select Month"
-//               value={month}
-//               onChange={(e) => setMonth(e.target.value)}
-//             >
-//               <option value="Jan">Jan</option>
-//               <option value="Feb">Feb</option>
-//               {/* Add more months */}
-//             </Select>
-
-//             <FormLabel>Year</FormLabel>
-//             <Select
-//               placeholder="Select year"
-//               value={year}
-//               onChange={(e) => setYear(e.target.value)}
-//             >
-//               <option value="2024">2024</option>
-//               <option value="2030">2030</option>
-//               {/* Add more years */}
-//             </Select>
-
-//             <FormLabel>Weather</FormLabel>
-//             <Select
-//               placeholder="Select Weather"
-//               value={weather}
-//               onChange={(e) => setWeather(e.target.value)}
-//             >
-//               <option value="Summer">Summer</option>
-//               <option value="Winter">Winter</option>
-//               {/* Add more weather options */}
-//             </Select>
-//           </FormControl>
-//           <Button mt="4" colorScheme="teal" onClick={handleSubmit}>
-//             Get Recommendations
-//           </Button>
-//           {recommendations && (
-//             <Box mt="4">
-//               <Text fontWeight="bold">Crop Recommendations:</Text>
-//               <Text>{recommendations}</Text>
-//             </Box>
-//           )}
-//         </Box>
-//       </Container>
-//     </ChakraProvider>
-//   );
-// }
-
-// export default Forecast;
-
-
-
-
-// ------------------------------------------------------------------------    
-
-
 import React, { useState } from 'react';
-import axios from 'axios';
-import { Box, Heading, Input, Button, Text, Center, VStack, FormControl, FormLabel } from '@chakra-ui/react';
+import {
+  Box,
+  Heading,
+  Input,
+  Button,
+  Text,
+  ChakraProvider,
+} from '@chakra-ui/react';
 
-const Forecast = () => {
-  const [soilType, setSoilType] = useState('');
-  const [city, setCity] = useState('');
-  const [month, setMonth] = useState('');
-  const [year, setYear] = useState('');
-  const [weather, setWeather] = useState('');
-  const [recommendation, setRecommendation] = useState('');
+const bgStyle = {
+  // bgGradient='linear(to-r, green.200, pink.500)'
+  // backgroundColor: '#61554D',
+  backdropFilter: 'blur(0.01px)',
+  backgroundImage: `url(https://img.freepik.com/free-photo/brown-soil-background-gardening_53876-133209.jpg?w=1060&t=st=1696231750~exp=1696232350~hmac=3aed6304a09c1a38c427688b05324b197990260aab1ae256397952796cede031)`,
+  backgroundSize: 'cover',
+  backgroundRepeat: 'no-repeat',
+};
 
-  const handleRecommendationRequest = async () => {
+
+const CropRecommendationForm = () => {
+  const [formData, setFormData] = useState({
+    Nitrogen: '',
+    Phosporus: '',
+    Potassium: '',
+    Temperature: '',
+    Humidity: '',
+    Ph: '',
+    Rainfall: '',
+  });
+  console.log(formData)
+  const [result, setResult] = useState('');
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
     try {
-      const response = await axios.post('/api/crop-recommendation', {
-        soilType,
-        city,
-        month,
-        year,
-        weather,
+      const response = await fetch('http://127.0.0.1:8000/predict/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
       });
 
-      if (response.status === 200) {
-        setRecommendation(response.data.message);
-      } else {
-        setRecommendation('Error in recommendation.');
+      const data = await response.json();
+
+      if (data.result) {
+        setResult(data.result);
+        console.log(data.result)
       }
     } catch (error) {
-      setRecommendation('Error in recommendation.');
+      console.error('Error:', error);
     }
   };
 
   return (
-    <Center>
-      <VStack spacing={4}>
-        <Heading as="h1">Crop Recommendation</Heading>
-        <FormControl>
-          <FormLabel>Soil Type</FormLabel>
-          <Input type="text" value={soilType} onChange={(e) => setSoilType(e.target.value)} />
-        </FormControl>
-        <FormControl>
-          <FormLabel>City</FormLabel>
-          <Input type="text" value={city} onChange={(e) => setCity(e.target.value)} />
-        </FormControl>
-        <FormControl>
-          <FormLabel>Month</FormLabel>
-          <Input type="text" value={month} onChange={(e) => setMonth(e.target.value)} />
-        </FormControl>
-        <FormControl>
-          <FormLabel>Year</FormLabel>
-          <Input type="text" value={year} onChange={(e) => setYear(e.target.value)} />
-        </FormControl>
-        <FormControl>
-          <FormLabel>Weather</FormLabel>
-          <Input type="text" value={weather} onChange={(e) => setWeather(e.target.value)} />
-        </FormControl>
-        <Button colorScheme="blue" onClick={handleRecommendationRequest}>
-          Get Crop Recommendation
-        </Button>
-        {recommendation && (
-          <Box>
-            <Heading as="h2" size="md">
-              Recommendation:
-            </Heading>
-            <Text>{recommendation}</Text>
-          </Box>
-        )}
-      </VStack>
-    </Center>
+    <ChakraProvider>
+    <Box className="container my-3 mt-3"  padding={'3%'} >
+        
+
+      <Heading className="text-success" style={bgStyle} bgClip='text' >Crop Recommendation System <span role="img" aria-label="seedling">🌱</span></Heading>
+
+      <form action="/predict/" method="POST" onSubmit={handleSubmit}>
+  <div className="row">
+    <div className="col-md-4">
+      <Text as='b' bgClip='text' bgGradient='linear(to-l, #086010, #1BBA9D,#52AE22 )' htmlFor="Nitrogen" >Nitrogen:</Text>
+      <Input
+        border='1px solid #350D0D'
+        type="number"
+        id="Nitrogen"
+        name="Nitrogen"
+        placeholder="Enter Nitrogen"
+        className="form-control"
+        required
+        step="0"
+        value={formData.Nitrogen}
+        onChange={handleChange}
+      />
+    </div>
+    <div className="col-md-4">
+      <Text as='b' bgClip='text' bgGradient='linear(to-l, #086010, #1BBA9D,#52AE22 )' htmlFor="Phosporus">Phosphorus:</Text>
+      <Input
+        border='1px solid #350D0D'
+        type="number"
+        id="Phosporus"
+        name="Phosporus"
+        placeholder="Enter Phosphorus"
+        className="form-control"
+        required
+        step="0"
+        value={formData.Phosporus}
+        onChange={handleChange}
+      />
+    </div>
+    <div className="col-md-4">
+      <Text as='b' bgClip='text' bgGradient='linear(to-l, #086010, #1BBA9D,#52AE22 )' htmlFor="Potassium">Potassium:</Text>
+      <Input
+        type="number"
+        id="Potassium"
+        name="Potassium"
+        border='1px solid #350D0D'
+        placeholder="Enter Potassium"
+        className="form-control"
+        required
+        step="0"
+        value={formData.Potassium}
+        onChange={handleChange}
+      />
+    </div>
+  </div>
+
+  <div className="row mt-4">
+    <div className="col-md-4">
+      <Text as='b' bgClip='text' bgGradient='linear(to-l, #086010, #1BBA9D,#52AE22 )' htmlFor="Temperature">Temperature:</Text>
+      <Input
+        type="number"
+        step="0.01"
+        border='1px solid #350D0D'
+        id="Temperature"
+        name="Temperature"
+        placeholder="Enter Temperature in °C"
+        className="form-control"
+        required
+        value={formData.Temperature}
+        onChange={handleChange}
+      />
+    </div>
+    <div className="col-md-4">
+      <Text as='b' bgClip='text' bgGradient='linear(to-l, #086010, #1BBA9D,#52AE22 )' htmlFor="Humidity">Humidity: </Text>
+      <Input
+        type="number"
+        step="0.01"
+        id="Humidity"
+        name="Humidity"
+        border='1px solid #350D0D'
+        placeholder="Enter Humidity in %"
+        className="form-control"
+        required
+        value={formData.Humidity}
+        onChange={handleChange}
+      />
+    </div>
+    <div className="col-md-4">
+      <Text as='b' bgClip='text' bgGradient='linear(to-l, #086010, #1BBA9D,#52AE22 )' htmlFor="Ph">pH:</Text>
+      <Input
+        type="number"
+        step="0.01"
+        id="Ph"
+        name="Ph"
+        border='1px solid #350D0D'
+        placeholder="Enter pH value"
+        className="form-control"
+        required
+        value={formData.Ph}
+        onChange={handleChange}
+      />
+    </div>
+  </div>
+
+  <div className="row mt-4">
+    <div className="col-md-4">
+      <Text as='b' bgClip='text' bgGradient='linear(to-l, #086010, #1BBA9D,#52AE22 )' htmlFor="Rainfall">Rainfall:</Text>
+      <Input
+        type="number"
+        step="0.01"
+        id="Rainfall"
+        border='1px solid #350D0D'
+        name="Rainfall"
+        placeholder="Enter Rainfall in mm"
+        className="form-control"
+        required
+        value={formData.Rainfall}
+        onChange={handleChange}
+      />
+    </div>
+  </div>
+
+  <div className="row mt-4">
+    <div className="col-md-12 text-center">
+      <Button type="submit" bgGradient='linear(to-r, #086010, #1BBA9D,#52AE22 )' mt={2} border={'1px solid white'} className="btn btn-primary btn-lg"
+        
+        color='white'
+            _hover={{
+              border: '1px solid #52AE22',
+              background: 'white',
+              // bgGradient:'linear(to-r, #086010, #1BBA9D,#52AE22 )',
+              color: '#52AE22'
+              // color:'white'
+            }}
+            >
+        Get Recommendation
+      </Button>
+    </div>
+  </div>
+</form>
+
+      {result && (
+        <Box className="card bg-dark" style={{ width: '20rem', 
+        border:'1px solid #52AE22',
+        padding:'20px',
+        marginBottom: '20px', color: 'black',
+         marginTop: '20px', color: 'black' }}
+         
+         >
+          <div className="card-body" >
+            <Text fontSize='2xl'className="card-title">Recommendation :</Text>
+            <Text as='mark' fontSize='2xl' className="card-text">{result}</Text>
+          </div>
+        </Box>
+      )}
+    </Box>
+    </ChakraProvider>
+
   );
 };
 
-export default Forecast;
+export default CropRecommendationForm;
 

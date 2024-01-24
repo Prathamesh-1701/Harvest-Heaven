@@ -25,7 +25,7 @@ import { ReactText } from 'react';
 
 const LinkItems = [
   { name: 'Home', icon: FiHome, link: '/' },
-  { name: 'Forcast', icon: FiTrendingUp, link: '/forecast' },
+  { name: 'Forcast', icon: FiTrendingUp, link: '/predict' },
   { name: 'Shop', icon: FaShoppingCart, link: '/shop' },
   { name: 'Diseases', icon: FaDisease, link: '/diseases' },
   { name: 'About', icon: FiSettings, link: '/about' },
@@ -69,7 +69,7 @@ const SidebarContent = ({ onClose }) => {
           >
             Empowering Sustainable Agriculture Website
           </Text>
-          <Box bg={'white'} height={'2%'} marginTop={'89%'} borderRadius={'8%'}>
+          <Box bg={'white'} height={'2%'} marginTop={'20%'} borderRadius={'8%'}>
             <CloseButton display={{ base: 'flex', md: 'flex' }} onClick={onClose} />
           </Box>
         </Box>
